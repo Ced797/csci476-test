@@ -5,13 +5,14 @@ const port = 8000;
 const route= require('./route.js');
 //const Sequelize = require('./sequelize');
 const sequelize = require('./sequelize.js');
-
+//const mysql = require('mysql2');
 
 app.set('views', path.join(__dirname, "views"));
 app.set('view engine', 'pug');
 app.use('/',express.static('public'));
 app.use(express.urlencoded({extended:false}));
 app.use('/',route);
+ 
 
 sequelize.authenticate()
 	.then(() =>{

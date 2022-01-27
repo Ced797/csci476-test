@@ -1,9 +1,18 @@
 const express = require('express');
 const Sequelize = require('./sequelize');
 const sequelize = require('./sequelize.js');
+
+//const con = require('./connector.js');
 const user = require('./user.js');
 const pass = require('./pass.js');
 const r = express.Router();
+
+/*con.connect((err) => {
+	if(err){
+		throw err;
+	}
+	console.log('connected');
+}).then(()=>con.close)*/
 
 r.get('/', (req,res) =>{
 	res.render('home');
@@ -13,8 +22,9 @@ r.post('/', (req,res) => {
 	var name = req.body.user;
 	var pass = req.body.pass;        // definetely have to add a search for usernames and passwords here
 	
-	const dataUser = user.findOne({where: {name:name} });
-	const dataPass = user.findOne({where: {pass:pass} });
+//	var a = 'Select uid From users where username =?',
+
+//	con.connect()
 });
 
 r.get('/home', (req,res) => {
@@ -46,10 +56,7 @@ r.post('/createUser',(req,res) => {     // post request for createing a username
 	pass.create({
 		uid:req.body.id,
 		pass:createPass
-	}).then(() =>{res.redirect('/')}).catch((err)=>{console.log('error-3',err)});
-	
-	
-	
+	}).then(() =>{res.redirect('/')}).catch((err)=>{console.log('error-3',err)}); 
 });
 
 module.exports = r;

@@ -13,7 +13,16 @@ app.use('/',express.static('public'));
 app.use(express.urlencoded({extended:false}));
 app.use('/',route);
  
-
+ 
+ /*con.connect((err) => {
+	if(err){
+		throw err;
+	}
+	console.log('connected');
+}).then(()=>con.close).catch((err) => {
+			console.log('didnt work');
+		});
+*/
 sequelize.authenticate()
 	.then(() =>{
 		//console.log('ok');

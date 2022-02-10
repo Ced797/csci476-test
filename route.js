@@ -22,18 +22,17 @@ var pass = req.body.pass;        // definetely have to add a search for username
  
 con.query(x,[pass,name], function (err,result,fields)  {
 	
-	 Object.keys(result).forEach(function(key) {
-      var row = result[key];
-      if( (row.username == name ) && (row.pass == pass) ){
-		 	res.redirect('/editUser');
+	 console.log(result[0].username);
+		
+      if( (result[0].username == name ) && (result[0].pass == pass) ){
+		 	res.redirect('/editUsers');
 	  }
 	
-	  if( (row.username !== name ) || (row.pass !== pass) ){
+	  if( (result[0].username !== name ) || (result[0].pass !== pass) ){
 		  console.log('456');
-		 	res.send('you done goofed');
+		 	res.redirect('/');
 	  }
-    });
-	
+  
 });
 	con.end();
 });
@@ -75,12 +74,19 @@ r.get('/editUsers',(req,res)=>{
 		console.log(users.username+"   abcdef");
 		
 		res.render('editUsers',{users : users});
-	})
+	}).catch((err)=>{console.log('error-3',err)});
 	
 });
 
+r.get('/editUsers:id',(req,res) => {
+	const id = req.params.id;
+	users.findByPk().then((x) =>{
+		console.log(x);
+		res.render('',{});
+	})
+});
 
 r.post('/editUsers/delete', (req,res) => {
-	
+	user.findBy()
 });
 module.exports = r;

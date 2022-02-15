@@ -4,8 +4,7 @@ const sequelize = require('./sequelize.js');
 const {op} = require('./sequelize');
 const con = require('./connector.js');
 
-const user = require('./user.js');
-//const pass = require('./pass.js');
+const user = require('./models/user.js');
 const r = express.Router();
 
 
@@ -78,15 +77,19 @@ r.get('/editUsers',(req,res)=>{
 	
 });
 
-r.get('/editUsers:id',(req,res) => {
+r.get('/editUsers/:id',(req,res) => {
 	const id = req.params.id;
-	users.findByPk().then((x) =>{
-		console.log(x);
-		res.render('',{});
-	})
+	user.findByPk(id).then((user) =>{
+		console.log(user);
+		res.render('singleUser',{user:user});
+	}).catch((err)=>{console.log('error-3',err)});
 });
 
-r.post('/editUsers/delete', (req,res) => {
-	user.findBy()
+r.post('/editUsers/:id/delete', (req,res) => {
+	user.findByPk()
+});
+
+r.post('/donation',(req,res) =>{
+	
 });
 module.exports = r;
